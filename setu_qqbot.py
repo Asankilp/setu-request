@@ -1,6 +1,5 @@
 from typing import Optional
 import requests
-from repo import Repo
 import asyncio
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -9,7 +8,23 @@ import urllib.parse
 import json
 import sys
 
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+url="http://127.0.0.1:5700/send_group_msg"
+version="1.3"
+
 app = FastAPI()
+
+class GroupItem(BaseModel):
+    message: str
+    group_id: int
+class FriendMessage(BaseModel):
+    message: str
+    friend_id: int
+
 @app.post("/")
 async def create_item(item: dict):
     msg1=item.get("message")
