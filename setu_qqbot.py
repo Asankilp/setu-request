@@ -9,22 +9,7 @@ import urllib.parse
 import json
 import sys
 
-class Item(BaseModel):
-    name: str
-    description: Optional[str] = None
-    price: float
-    tax: Optional[float] = None
-url="http://127.0.0.1:5700/send_group_msg"
-version="1.3"
-
 app = FastAPI()
-class GroupItem(BaseModel):
-    message: str
-    group_id: int
-class FriendMessage(BaseModel):
-    message: str
-    friend_id: int
-
 @app.post("/")
 async def create_item(item: dict):
     msg1=item.get("message")
@@ -32,7 +17,7 @@ async def create_item(item: dict):
     if msg1 and (msg1.startswith("来一份涩图")):
         tiaojian = msg1[5:].strip()
         word = urllib.parse.quote(tiaojian)
-        ree = urllib.request.urlopen('https://api.lolicon.app/setu/?apikey=51591012606954c49887c2&keyword='+word) #从api获取json
+        ree = urllib.request.urlopen('https://api.lolicon.app/setu/?keyword='+word) #从api获取json
         de = ree.read().decode() #解码
         data = json.loads(de)
         quota = (data['quota'])
