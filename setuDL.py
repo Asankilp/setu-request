@@ -1,4 +1,5 @@
 '''
+https://github.com/Asankilp/setu-request
 ----------------变量详情-----------------
 ree：从涩图api拉取的数据
 de：解码后的json
