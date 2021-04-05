@@ -2,3 +2,6 @@
 apikey.txt
 savedir.txt
 /.vscode/
+*.png
+*.jpg
+*.gif
