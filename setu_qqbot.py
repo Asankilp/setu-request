@@ -45,6 +45,7 @@ async def create_item(item: dict):
     msg1=item.get("message")
     group=item.get("group_id")
     if msg1 and (msg1.startswith("来一份涩图") or (msg1.startswith("老鸭粉丝汤"))):
+        print("收到了请求。")
         tiaojian = msg1[5:].strip()
         p1, p2 ,p3 = tiaojian.partition("&")#阻止用户自行添加参数
         word = urllib.parse.quote(p1)
@@ -61,6 +62,7 @@ async def create_item(item: dict):
             title = str(data["data"][0]["title"])
             tags = str(data["data"][0]["tags"])
             requests.post(url,json={"group_id":group,"message":"PID:"+pid+" 作者："+author+" 标题："+title+"\n标签："+tags+"\n剩余调用次数："+str(quota)+"\nURL:"+dlurl+"[CQ:image,file="+dlurl+",url="+dlurl+"]"})
+            print("完成了请求。")
         else:
             requests.post(url,json={"group_id":group,"message":"代码："+str(code)+"\n错误信息："+msg})
         del tiaojian
