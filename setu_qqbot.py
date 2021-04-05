@@ -44,7 +44,7 @@ print ("如果你有APIKEY，请在apikey.txt中输入。")
 async def create_item(item: dict):
     msg1=item.get("message")
     group=item.get("group_id")
-    if msg1 and (msg1.startswith("来一份涩图")):
+    if msg1 and (msg1.startswith("来一份涩图") or (msg1.startswith("老鸭粉丝汤"))):
         tiaojian = msg1[5:].strip()
         p1, p2 ,p3 = tiaojian.partition("&")#阻止用户自行添加参数
         word = urllib.parse.quote(p1)
@@ -66,7 +66,7 @@ async def create_item(item: dict):
         del tiaojian
         del word
     if msg1=="ver":
-        requests.post(url,json={"group_id":group,"message":"setu_qqbot（https://github.com/Asankilp/setu-request） ver"+version+" by Asankilp\n本机器人基于uvicorn及go-cqhttp（github.com/Mrs4s/go-cqhttp）。涩图API为Lolicon API（api.lolicon.app）。\n提供了APIKEY："+str(apikey)+"\n运行环境：\nPython "+sys.version})
+        requests.post(url,json={"group_id":group,"message":"setu_qqbot（https://github.com/Asankilp/setu-request） ver"+version+"\n本机器人基于uvicorn及go-cqhttp（github.com/Mrs4s/go-cqhttp）。涩图API为Lolicon API（api.lolicon.app）。\n提供了APIKEY："+str(apikey)+"\n运行环境：\nPython "+sys.version})
     if msg1=="目力":
         requests.post(url,json={"group_id":group,"message":"[CQ:record,file=https://asankilp.github.io/muli.mp3]"})
     return {}
