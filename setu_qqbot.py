@@ -15,7 +15,7 @@ class Item(BaseModel):
     price: float
     tax: Optional[float] = None
 url="http://127.0.0.1:5700/send_group_msg"
-version="1.4"
+version="1.4.2"
 
 app = FastAPI()
 
@@ -61,7 +61,9 @@ async def create_item(item: dict):
             author = str(data["data"][0]["author"])
             title = str(data["data"][0]["title"])
             tags = str(data["data"][0]["tags"])
-            requests.post(url,json={"group_id":group,"message":"PID:"+pid+" 作者："+author+" 标题："+title+"\n标签："+tags+"\n剩余调用次数："+str(quota)+"\nURL:"+dlurl+"[CQ:image,file="+dlurl+",url="+dlurl+"]"})
+            print("PID:"+pid+" URL:"+dlurl)
+            requests.post(url,json={"group_id":group,"message":"PID:"+pid+" 作者："+author+" 标题："+title+"\n标签："+tags+"\n剩余调用次数："+str(quota)+"\nURL:"+dlurl})
+            requests.post(url,json={"group_id":group,"message":"[CQ:image,file="+dlurl+"]"})
             print("完成了请求。")
         else:
             requests.post(url,json={"group_id":group,"message":"代码："+str(code)+"\n错误信息："+msg})
