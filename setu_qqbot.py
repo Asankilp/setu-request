@@ -71,7 +71,7 @@ async def create_item(item: dict):
         del tiaojian
         del word
     if msg1=="ver":
-        requests.post(url,json={"group_id":group,"message":"setu_qqbot（https://github.com/Asankilp/setu-request） ver"+version+"\n本机器人基于uvicorn及go-cqhttp（github.com/Mrs4s/go-cqhttp）。涩图API为Lolicon API（api.lolicon.app）。\n提供了APIKEY："+str(apikey)+"\n运行环境：\nPython "+sys.version+"\n操作系统："+platform.platform()+" "+platform.version()})
+        requests.post(url,json={"group_id":group,"message":"setu_qqbot（https://github.com/Asankilp/setu-request） ver"+version+"\n本机器人基于uvicorn及go-cqhttp（github.com/Mrs4s/go-cqhttp）。涩图API为Lolicon API（api.lolicon.app）。\n提供了APIKEY："+str(apikey)+"\n运行环境：\nPython "+sys.version+"\n操作系统：\n"+platform.platform()+" "+platform.version()})
     if msg1=="目力":
         requests.post(url,json={"group_id":group,"message":"[CQ:record,file=https://asankilp.github.io/muli.mp3]"})
     return {}
