@@ -28,6 +28,8 @@ print("\n\n")
 print("<html>")
 print("<head>")
 print("<title>涩图请求</title>")
+print("</head>")
+print("<body>")
 ree = urllib.request.urlopen('https://api.lolicon.app/setu/?keyword='+word+'&num='+str(numb)+'&apikey='+key+'&'+argu) #从api获取json
 de = ree.read().decode() #解码
 #print("返回JSON：",de)
@@ -48,5 +50,5 @@ if code == 0:
         arraycount = arraycount + 1
 else:
     print("代码："+str(code)+" 错误信息："+msg)
-print("</head>")
-print("<body>")
+print("</body>")
+print("<html>")
