@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 import cgi, cgitb 
 import urllib
 import urllib.request
@@ -35,10 +36,17 @@ code = int(data["code"])
 msg = str(data["msg"])
 quota = (data['quota'])
 if code == 0:
+    print("<a>剩余调用次数："+str(quota)+"</a> <br/>")
     for a in range(int(numb)):
         pid = str(data["data"][arraycount]["pid"])
+        title = str(data["data"][arraycount]["title"])
+        tags = str(data["data"][arraycount]["tags"])
+        author = str(data["data"][0]["author"])
         dlurl = data["data"][arraycount]["url"]
-        print("<img src="+dlurl+" alt="+pid+" width=500, height=500>")
+        print("URL:"+dlurl+" PID:"+pid+" 作者:"+author+" 标题:"+title+" 标签:"+tags)
+        print("<img src="+dlurl+" alt="+pid+" width=500, height=500> <br/>")
         arraycount = arraycount + 1
+else:
+    print("代码："+str(code)+" 错误信息："+msg)
 print("</head>")
 print("<body>")
