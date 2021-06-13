@@ -10,14 +10,12 @@ form = cgi.FieldStorage()
 
 arraycount = 0
 # 获取数据
-key = form.getvalue('apikey')
+#key = form.getvalue('apikey')
 numb = form.getvalue('count')
 word = form.getvalue('tiaojian')
 argu = form.getvalue('arg')
 if numb is None: 
     numb = 1
-if key is None:
-    key = ""
 if word is None:
     word = ""
 if argu is None:
@@ -28,15 +26,17 @@ print("\n\n")
 print("<html>")
 print("<head>")
 print("<title>涩图请求</title>")
-ree = urllib.request.urlopen('https://api.lolicon.app/setu/?keyword='+word+'&num='+str(numb)+'&apikey='+key+'&'+argu) #从api获取json
-de = ree.read().decode() #解码
+print("</head>")
+print("<body>")
+ree = urllib.request.urlopen('https://api.lolicon.app/setu/v1/?keyword='+word+'&num='+str(numb)+'&'+argu) #从api获取json
+de = ree.read().decode(encoding='utf-8', errors='replace') #解码
 #print("返回JSON：",de)
 data = json.loads(de)
 code = int(data["code"])
 msg = str(data["msg"])
-quota = (data['quota'])
+#quota = (data['quota'])
 if code == 0:
-    print("<a>剩余调用次数："+str(quota)+"</a> <br/>")
+    #print("<a>剩余调用次数："+str(quota)+"</a> <br/>")
     for a in range(int(numb)):
         pid = str(data["data"][arraycount]["pid"])
         title = str(data["data"][arraycount]["title"])
@@ -48,5 +48,5 @@ if code == 0:
         arraycount = arraycount + 1
 else:
     print("代码："+str(code)+" 错误信息："+msg)
-print("</head>")
-print("<body>")
+print("</body>")
+print("<html>")
