@@ -36,7 +36,7 @@ async def create_item(item: dict):
         tiaojian = msg1[5:].strip()
         p1, p2 ,p3 = tiaojian.partition("&")#阻止用户自行添加参数
         word = urllib.parse.quote(p1)
-        ree = urllib.request.urlopen('https://api.lolicon.app/setu/vi/?size1200=true&keyword='+word) #从api获取json
+        ree = urllib.request.urlopen('https://api.lolicon.app/setu/v1/?size1200=true&keyword='+word) #从api获取json
         de = ree.read().decode() #解码
         data = json.loads(de)
         code = int(data["code"])
