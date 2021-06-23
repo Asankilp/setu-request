@@ -16,8 +16,6 @@ class Item(BaseModel):
     price: float
     tax: Optional[float] = None
 url="http://127.0.0.1:5700/send_group_msg"
-version="1.4.3"
-
 app = FastAPI()
 
 class GroupItem(BaseModel):
@@ -57,7 +55,7 @@ async def create_item(item: dict):
         del tiaojian
         del word
     if msg1=="ver":
-        requests.post(url,json={"group_id":group,"message":"setu_qqbot（https://github.com/Asankilp/setu-request） ver"+version+"\n本机器人基于uvicorn及go-cqhttp（github.com/Mrs4s/go-cqhttp）。涩图API为Lolicon API v1（api.lolicon.app）。\n运行环境：\nPython "+sys.version+"\n操作系统：\n"+platform.platform()+" "+platform.version()})
+        requests.post(url,json={"group_id":group,"message":"setu_qqbot（https://github.com/Asankilp/setu-request）\n本机器人基于uvicorn。涩图API为Lolicon API v1（api.lolicon.app）。\n运行环境：\nPython "+sys.version+"\n操作系统：\n"+platform.platform()+" "+platform.version()})
     if msg1=="目力":
         requests.post(url,json={"group_id":group,"message":"[CQ:record,file=https://asankilp.github.io/muli.mp3]"})
     return {}
