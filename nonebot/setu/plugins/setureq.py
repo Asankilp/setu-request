@@ -10,10 +10,22 @@ from requests.sessions import Session, session
 async def _(session: CommandSession):
     arg = session.current_arg_text.strip().lower()
     if not arg:
+        await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
         setu_data = await get_setu()
-        await session.send(setu_data)
+        if len(setu_data) == 5:
+            await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\n标签："+setu_data[4]+"\nURL:"+setu_data[0])
+            await session.send("[CQ:image,file="+setu_data[0]+"]")
+        else:
+            await session.send("代码："+setu_data[0]+"\n错误信息："+setu_data[1])
+        del setu_data
+    await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
     setu_data = await get_setu(arg)
-    await session.send(setu_data)
+    if len(setu_data) == 5:
+        await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\n标签："+setu_data[4]+"\nURL:"+setu_data[0])
+        await session.send("[CQ:image,file="+setu_data[0]+"]")
+    else:
+        await session.send("代码："+setu_data[0]+"\n错误信息："+setu_data[1])
+    del setu_data
 @on_command("ver", only_to_me=False)
 async def _(session: CommandSession):
     await session.send("setu_qqbot（https://github.com/Asankilp/setu-request）\n本机器人基于NoneBot。涩图API为Lolicon API v1（api.lolicon.app）。\n运行环境：\nPython "+sys.version+"\n操作系统：\n"+platform.platform()+" "+platform.version())
@@ -36,6 +48,6 @@ async def get_setu(arg="") -> str:
         author = str(data["data"][0]["author"])
         title = str(data["data"][0]["title"])
         tags = str(data["data"][0]["tags"])
-        return "PID:"+pid+" 作者："+author+" 标题："+title+"\n标签："+tags+"\nURL:"+dlurl+"[CQ:image,file="+dlurl+"]"
+        return [dlurl, pid, author, title, tags]
     else:
-        return "代码："+str(code)+"\n错误信息："+msg
+        return [str(code), msg]
