@@ -5,3 +5,6 @@ savedir.txt
 *.png
 *.jpg
 *.gif
+/nonebot/__pycache__/
+/nonebot/setu/plugins/__pycache__/
+*.bak
