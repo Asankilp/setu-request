@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+#! /usr/bin/env python3
 import cgi, cgitb 
 import urllib
 import urllib.request
@@ -25,6 +25,7 @@ print("Content-type:text/html")
 print("\n\n")
 print("<html>")
 print("<head>")
+print("<meta charset=\"utf-8\">")
 print("<title>涩图请求</title>")
 print("</head>")
 print("<body>")
@@ -43,7 +44,7 @@ if code == 0:
         tags = str(data["data"][arraycount]["tags"])
         author = str(data["data"][0]["author"])
         dlurl = data["data"][arraycount]["url"]
-        print("URL:"+dlurl+" PID:"+pid+" 作者:"+author+" 标题:"+title+" 标签:"+tags)
+        print("<a> URL:"+dlurl+" PID:"+pid+" 作者:"+author+" 标题:"+title+" 标签:"+tags+" </a>")
         print("<img src="+dlurl+" alt="+pid+" width=500, height=500> <br/>")
         arraycount = arraycount + 1
 else:
