@@ -36,7 +36,7 @@ async def _(session: CommandSession):
     await session.send("[CQ:record,file=https://asankilp.github.io/muli.mp3]")
 @on_command("help", only_to_me=False)
 async def _(session: CommandSession):
-    await session.send("用法：\n/setu [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图。未提供关键词将随机搜索。\n/ver 查看Bot信息\n/sendmsg <消息> 使此机器人发送指定的消息。")
+    await session.send("用法：\n/setu [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图。未提供关键词将随机搜索。\n/ver 查看Bot信息\n/sendmsg <消息> 使此机器人发送指定的消息。仅超级用户可用。")
 @on_command("sendmsg", only_to_me=False, permission=perm.SUPERUSER)
 async def _(session: CommandSession):
     arg = session.current_arg_text.strip().lower()
