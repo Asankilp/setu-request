@@ -1,5 +1,5 @@
 import nonebot
-from nonebot import on_command, CommandSession
+from nonebot import on_command, CommandSession, permission as perm
 import urllib
 import urllib.parse
 import json
