@@ -96,9 +96,19 @@ if debugmode == 1:
     replacedebug = replacesym(input("请输入字符串："))
     print ('替换后字符串：' + replacedebug)
     sys.exit(0)
-
+if os.path.exists("savedir.txt") is False:#检测文件是否存在，若不存在则创建
+    createdirr = open ("./savedir.txt", mode="a")
+    createdirr.close()
+dirr = open ("./savedir.txt", mode="r", encoding='utf-8')#打开文件
+setudir = dirr.readline()
+dirr.close()
+if str(setudir) == "":
+    showdir = os.getcwd()
+else:
+    showdir = setudir
 print ("正在使用Lolicon API v1。无需提供APIKEY。")
 print ("在savedir.txt中可以输入自定义保存路径。路径末尾需加一个斜杠，否则程序会保存在上一级目录。")
+print ("当前保存路径："+ str(showdir))
 print ("为确保API运行正常，请勿请求过多涩图。")
 count = int(input('来几份涩图？ ') or 1)
 if count > 0:
@@ -107,12 +117,6 @@ if count > 0:
             word = urllib.parse.quote(input("搜索条件？（插画标题、作者、标签，留空则随机）"))#请求用户输入搜索条件+编码为url
             argu = str(input("其他参数？（参数之间用&分割，可留空）"))
             #word.encode('utf8','strict')
-            if os.path.exists("savedir.txt") is False:#检测文件是否存在，若不存在则创建
-                createdirr = open ("./savedir.txt", mode="a")
-                createdirr.close()
-            dirr = open ("./savedir.txt", mode="r", encoding='utf-8')#打开文件
-            setudir = dirr.readline()
-            dirr.close()
             for i in range(count): #循环（涩图份数）次
                 ree = urllib.request.urlopen('https://api.lolicon.app/setu/v1/?keyword=' + word + '&num=' + str(numb) + "&" + argu) #从api获取json
                 de = ree.read().decode() #解码
