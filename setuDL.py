@@ -11,16 +11,17 @@ pic：插画的p数
 title：插画标题
 uid：插画作者UID
 author：插画作者
+extname：扩展名
 
 -----保存文件名自定义详细说明------
 通过修改代码可以自定义保存的文件名。
 于注释了 #拼接涩图文件名... 的代码处修改。
 可以使用预先定义的变量，须遵循Python的语法。
 格式例子：
-pid + "_p" + pic + ".png"
-    保存的文件名为"12345678_p0.png"
-pid + "_" + author + ".png"
-    保存的文件名为"12345678_插画作者.png"
+pid + "_p" + pic + extname
+    保存的文件名为"12345678_p0.png/jpg"
+pid + "_" + author + extname
+    保存的文件名为"12345678_插画作者.png/jpg"
 *扩展名为必填项。也可以自定义扩展名。
 *也可以使用高级语法。
 '''
@@ -36,17 +37,17 @@ from retrying import retry
 @retry(stop_max_attempt_number=3, wait_fixed=3000)#自动重试
 def download_img(dlurl): #定义下载函数
     global setudir
+    extname = "." + dlurl.split(".").pop()
+    setuname = pid + "_p" + pic + "-" + title + extname #拼接涩图文件名，可以使用变量自定义文件名，目前只可通过修改代码实现自定义
     r = requests.get(dlurl, stream=True)
     print("状态码：", r.status_code) # 返回状态码
-    setuname = pid + "_p" + pic + "-" + title + ".png" #拼接涩图文件名，可以使用变量自定义文件名，目前只可通过修改代码实现自定义
-    setupath = setudir + "/" + setuname
-    retrycount = 0
+    setupath = os.path.join(setudir, setuname)
     if r.status_code == 200:
         print("\033[33m下载中...\033[0m")
         if str(setudir) is None:#如果savedir.txt没内容，则取默认值
             setudir = "./"
         if os.path.exists(setupath) is False:
-            open(setudir + setuname, 'wb').write(r.content) # 将内容写入图片
+            open(os.path.join(setudir, setuname), 'wb').write(r.content) # 将内容写入图片
             print("\033[32m下载完成\033[0m")
             return 'done'
         else:
@@ -54,9 +55,8 @@ def download_img(dlurl): #定义下载函数
             return 'exist'
     else:
         print("\033[31m发生错误！无法下载。\033[0m")
-        return 'error'
+    return 'error'
     del r
-
 def startdl(data):
     global arraycount, pid, pic, uid, title, author, dlurl
     for a in range(numb):
@@ -74,7 +74,7 @@ def startdl(data):
         setuzhang = arraycount + 1#涩图张数
         print ("当前为第" + str(setuzhang) + "/" + str(numb) + "张涩图")
         print ("标题：" + title1 + " 作者：" + author1)
-        print ("标签：" + tags)
+        print ("标签：" + tags);
         download_img(dlurl)#下载文件
         arraycount = arraycount + 1 #下载一张涩图后使数组顺序+1以便下载下一张涩图
 def replacesym(zifu):
@@ -107,7 +107,7 @@ if str(setudir) == "":
 else:
     showdir = setudir
 print ("正在使用Lolicon API v1。无需提供APIKEY。")
-print ("在savedir.txt中可以输入自定义保存路径。路径末尾需加一个斜杠，否则程序会保存在上一级目录。")
+print ("在savedir.txt中可以输入自定义保存路径。")
 print ("当前保存路径："+ str(showdir))
 print ("为确保API运行正常，请勿请求过多涩图。")
 count = int(input('来几份涩图？ ') or 1)
@@ -132,7 +132,6 @@ if count > 0:
                     startdl(data)
                 else:
                     print("\033[31m发生错误！代码：" + str(code) + "，错误信息：" + msg + "\033[0m")
-                    print("详细信息请查看API返回的json。")
                     break
         else:
             print("\033[31m张数无效。\033[0m")
