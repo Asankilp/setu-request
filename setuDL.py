@@ -31,7 +31,6 @@ import urllib.parse
 import requests
 import json
 import os
-import re
 import sys
 from retrying import retry
 @retry(stop_max_attempt_number=3, wait_fixed=3000)#自动重试
@@ -87,11 +86,12 @@ def startdl(data):
         setuzhang = arraycount + 1#涩图张数
         print ("当前为第" + str(setuzhang) + "/" + str(numb) + "张涩图")
         print ("标题：" + title1 + " 作者：" + author1)
-        print ("标签：" + tags);
+        print ("标签：" + tags)
+        #dlurl = input("url")
         download_img(dlurl)#下载文件
         arraycount = arraycount + 1 #下载一张涩图后使数组顺序+1以便下载下一张涩图
 def replacesym(zifu):
-    spsymbol = ['\\',"|","/","?","<",">",":","*","\""]
+    #spsymbol = ['\\',"|","/","?","<",">",":","*","\""]
     result = zifu.replace('\\', '')
     result = result.replace('/', '')
     result = result.replace('?', '？')
@@ -121,6 +121,10 @@ else:
     showdir = setudir
 
 if os.system("curl -V >nul") == 0:
+    try:
+        os.remove("nul")
+    except:
+        pass
     print("\033[32m已安装curl。将使用curl进行下载。\033[0m")
     usecurl = True
 else:
