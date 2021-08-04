@@ -44,7 +44,7 @@ def download_img(dlurl): #定义下载函数
             if str(setudir) is None:#如果savedir.txt没内容，则取默认值
                 setudir = "./"
             print("\033[33m下载中...\033[0m")
-            if os.system("curl "+dlurl+" -o "+os.path.join(setudir, setuname)+" -#") == 0:
+            if os.system("curl "+dlurl+" -o "+"\""+os.path.join(setudir, setuname)+"\""+" -#") == 0:
                 print("\033[32m下载完成\033[0m")
                 return 'done'
             else:
