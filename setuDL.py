@@ -41,8 +41,8 @@ def download_img(dlurl): #定义下载函数
     setupath = os.path.join(setudir, setuname)
     if usecurl == True:
         if os.path.exists(setupath) is False:
+            print("\033[33m下载中...\033[0m")
             if os.system("curl "+dlurl+" -o "+setuname+" -#") == 0:
-                print("\033[33m下载中...\033[0m")
                 print("\033[32m下载完成\033[0m")
                 return 'done'
             else:
