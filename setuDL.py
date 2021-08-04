@@ -39,24 +39,37 @@ def download_img(dlurl): #定义下载函数
     global setudir
     extname = "." + dlurl.split(".").pop()
     setuname = pid + "_p" + pic + "-" + title + extname #拼接涩图文件名，可以使用变量自定义文件名，目前只可通过修改代码实现自定义
-    r = requests.get(dlurl, stream=True)
-    print("状态码：", r.status_code) # 返回状态码
     setupath = os.path.join(setudir, setuname)
-    if r.status_code == 200:
-        print("\033[33m下载中...\033[0m")
-        if str(setudir) is None:#如果savedir.txt没内容，则取默认值
-            setudir = "./"
+    if usecurl == True:
         if os.path.exists(setupath) is False:
-            open(os.path.join(setudir, setuname), 'wb').write(r.content) # 将内容写入图片
-            print("\033[32m下载完成\033[0m")
-            return 'done'
+            if os.system("curl "+dlurl+" -o "+setuname+" -#") == 0:
+                print("\033[33m下载中...\033[0m")
+                print("\033[32m下载完成\033[0m")
+                return 'done'
+            else:
+                print("\033[31m发生错误！无法下载。\033[0m")
+                return 'error'
         else:
             print ("文件已存在，跳过此下载。")
             return 'exist'
     else:
-        print("\033[31m发生错误！无法下载。\033[0m")
-    return 'error'
-    del r
+        r = requests.get(dlurl, stream=True)
+        print("状态码：", r.status_code) # 返回状态码
+        if r.status_code == 200:
+            print("\033[33m下载中...\033[0m")
+            if str(setudir) is None:#如果savedir.txt没内容，则取默认值
+                setudir = "./"
+            if os.path.exists(setupath) is False:
+                open(os.path.join(setudir, setuname), 'wb').write(r.content) # 将内容写入图片
+                print("\033[32m下载完成\033[0m")
+                return 'done'
+            else:
+                print ("文件已存在，跳过此下载。")
+                return 'exist'
+        else:
+            print("\033[31m发生错误！无法下载。\033[0m")
+        del r
+        return 'error'
 def startdl(data):
     global arraycount, pid, pic, uid, title, author, dlurl
     for a in range(numb):
@@ -106,6 +119,13 @@ if str(setudir) == "":
     showdir = os.getcwd()
 else:
     showdir = setudir
+
+if os.system("curl -V >nul") == 0:
+    print("\033[32m已安装curl。将使用curl进行下载。\033[0m")
+    usecurl = True
+else:
+    print("\033[33m未安装curl。将使用requests模块进行下载。\033[0m\n如果你已安装，请确认是否添加进环境变量。")
+    usecurl = False
 print ("正在使用Lolicon API v1。无需提供APIKEY。")
 print ("在savedir.txt中可以输入自定义保存路径。")
 print ("当前保存路径："+ str(showdir))
