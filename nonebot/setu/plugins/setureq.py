@@ -60,7 +60,7 @@ async def _(session: CommandSession):
     await session.send("[CQ:record,file=https://asankilp.github.io/muli.mp3]")
 @on_command("help", only_to_me=False)
 async def _(session: CommandSession):
-    await session.send("用法：\n/setu [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图。未提供关键词将随机搜索。\n/setu-h [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图(R-18)。未提供关键词将随机搜索。\n/ver 查看Bot信息\n/sendmsg <消息> 使此机器人发送指定的消息。仅超级用户可用。")
+    await session.send("用法：\n/setu [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图。未提供关键词将随机搜索。\n/setub 从 https://iw233.cn/ 的API（http://iw233.cn/api/Random.php）随机获取涩图。\n/setu-h [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图(R-18)。未提供关键词将随机搜索。\n/ver 查看Bot信息\n/sendmsg <消息> 使此机器人发送指定的消息。仅超级用户可用。")
 @on_command("sendmsg", only_to_me=False, permission=perm.SUPERUSER)
 async def _(session: CommandSession):
     arg = session.current_arg_text.strip()
@@ -106,7 +106,7 @@ async def get_setu_h(arg="") -> str:
         return [dlurl, pid, author, title, tags]
     else:
         return [str(code), msg]
-async def get_setub():
+def get_setub():
     a = urllib.request.urlopen("http://iw233.cn/api/Random.php")
-    b = a.geturl()
+    b = str(a.geturl())
     return b
