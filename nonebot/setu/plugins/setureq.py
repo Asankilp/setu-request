@@ -50,7 +50,8 @@ async def _(session: CommandSession):
 @on_command('setub', only_to_me=False)
 async def _(session: CommandSession):
     await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
-    await session.send("[CQ:image,file=http://iw233.cn/api/Random.php]")
+    setu_data = get_setub()
+    await session.send("[CQ:image,file="+setu_data+"]")
 @on_command("ver", only_to_me=False)
 async def _(session: CommandSession):
     await session.send("setu_qqbot（https://github.com/Asankilp/setu-request）\n本机器人基于NoneBot。涩图API为Lolicon API v1（api.lolicon.app）。\n运行环境：\nPython "+sys.version+"\n操作系统：\n"+platform.platform()+" "+platform.version())
@@ -105,3 +106,7 @@ async def get_setu_h(arg="") -> str:
         return [dlurl, pid, author, title, tags]
     else:
         return [str(code), msg]
+async def get_setub():
+    a = urllib.request.urlopen("http://iw233.cn/api/Random.php")
+    b = a.geturl()
+    return b
