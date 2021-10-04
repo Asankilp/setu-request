@@ -9,5 +9,6 @@ savedir.txt
 /nonebot/setu/plugins/__pycache__/
 *.bak
 /nonebot/config.py
+/nonebot/config.json
 /nonebot/setuhdisabled
 nul
