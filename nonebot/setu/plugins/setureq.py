@@ -68,7 +68,7 @@ async def _(session: CommandSession):
         for i in setu_h_bannedkeywords:
             if re.search(i, arg) is not None:
                 await session.send("此关键词已被屏蔽。")
-            return
+                return
         await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
         setu_data = await get_setu_h(arg)
         if len(setu_data) == 5:
@@ -150,7 +150,7 @@ async def get_setu_h(arg="") -> str:
         pid = str(data["data"][0]["pid"])
         author = str(data["data"][0]["author"])
         title = str(data["data"][0]["title"])
-        tags = str(data["data"][0]["tags"])
+        tags = list(data["data"][0]["tags"])
         return [dlurl, pid, author, title, tags]
     else:
         return [str(code), msg]
