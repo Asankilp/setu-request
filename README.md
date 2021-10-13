@@ -11,7 +11,7 @@ web 版本可通过运行`server/run.py`开启简易服务器，并通过指定�
 ```
 get_setu_from_loliconv1(keyword, r18=0, num=1, proxy="i.pixiv.cat", size1200=False)
 ```
-从Lolicon API v1获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](api.lolicon.app/#/setu-v1) ） 。
+从Lolicon API v1获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu-v1) ） 。  
 参数：  
 * __keyword__ (`str`) 搜索涩图的关键字。 
 * __r18__ (`int`) R18状态。`0`为非R18，`1`为R18，`2`为混合，默认为`0`。传递这些数字以外的参数会抛出`ValueError`异常。
