@@ -53,7 +53,7 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
         requestjson["dateAfter"] = dateAfter
     if dateBefore is not None:
         requestjson["dateBefore"] = dateBefore
-    print(requestjson)
+    #print(requestjson)
     SIZE_ARGS = ["original", "regular", "small", "thumb", "mini"]
     R18_ALLOWED_ARG = [0,1,2]
     if r18 not in R18_ALLOWED_ARG:
