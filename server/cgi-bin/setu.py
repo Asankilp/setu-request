@@ -1,10 +1,12 @@
 #! /usr/bin/env python3
-import cgi, cgitb 
+import cgi
 import urllib
 import urllib.request
 import urllib.parse
-import requests
 import json
+import io
+import sys
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')
 # 创建 FieldStorage 的实例化
 form = cgi.FieldStorage() 
 
@@ -29,8 +31,8 @@ print("<meta charset=\"utf-8\">")
 print("<title>涩图请求</title>")
 print("</head>")
 print("<body>")
-ree = urllib.request.urlopen('https://api.lolicon.app/setu/v1/?keyword='+word+'&num='+str(numb)+'&'+argu) #从api获取json
-de = ree.read().decode(encoding='utf-8', errors='replace') #解码
+ree = urllib.request.urlopen(f'https://api.lolicon.app/setu/v1/?keyword={word}&num={str(numb)}&{argu}') #从api获取json
+de = ree.read().decode() #解码
 #print("返回JSON：",de)
 data = json.loads(de)
 code = int(data["code"])
@@ -44,8 +46,8 @@ if code == 0:
         tags = str(data["data"][arraycount]["tags"])
         author = str(data["data"][0]["author"])
         dlurl = data["data"][arraycount]["url"]
-        print("<a> URL:"+dlurl+" PID:"+pid+" 作者:"+author+" 标题:"+title+" 标签:"+tags+" </a>")
-        print("<img src="+dlurl+" alt="+pid+" width=500, height=500> <br/>")
+        print(f"URL:<a href=\"{dlurl}\">{dlurl} <a> PID:{pid} 作者:{author} 标题:{title} 标签:{tags}")
+        print(f"<img src={dlurl} alt={pid} width=500, height=500> <br/>")
         arraycount = arraycount + 1
 else:
     print("代码："+str(code)+" 错误信息："+msg)
