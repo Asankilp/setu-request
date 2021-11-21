@@ -33,6 +33,7 @@ import json
 import os
 import sys
 from retrying import retry
+import seturequest
 @retry(stop_max_attempt_number=3, wait_fixed=3000)#自动重试
 def download_img(dlurl): #定义下载函数
     global setudir
@@ -85,6 +86,7 @@ def startdl(data):
         dlurl = data["data"][arraycount]["url"]
         tags = str(data["data"][arraycount]["tags"])
         print ("url:",dlurl)
+        print (f"主站URL:https://pixiv.net/i/{pid}")
         setuzhang = arraycount + 1#涩图张数
         print ("当前为第" + str(setuzhang) + "/" + str(numb) + "张涩图")
         print ("标题：" + title1 + " 作者：" + author1)
@@ -123,7 +125,7 @@ if str(setudir) == "":
 else:
     showdir = setudir
 
-if os.system("curl -V >nul") == 0:
+if os.system("curl -V >nul") == 0: #what the fuck
     try:
         os.remove("nul")
     except:
@@ -142,13 +144,13 @@ if count > 0:
         numb = int(input("一份几张涩图？（最大为100）") or 1)
         if numb > 0:
             word = urllib.parse.quote(input("搜索条件？（插画标题、作者、标签，留空则随机）"))#请求用户输入搜索条件+编码为url
-            argu = str(input("其他参数？（参数之间用&分割，可留空）"))
+            r18 = int(input("R18状态（0为禁用，1为启用，2为混合）") or 0)
             #word.encode('utf8','strict')
             for i in range(count): #循环（涩图份数）次
-                ree = urllib.request.urlopen('https://api.lolicon.app/setu/v1/?keyword=' + word + '&num=' + str(numb) + "&" + argu) #从api获取json
-                de = ree.read().decode() #解码
-                print("返回JSON：",de)
-                data = json.loads(de)
+                data = seturequest.get_setu_from_loliconv1(keyword=word, num=numb, r18=r18) #从api获取json
+                #de = ree.read().decode() #解码
+                print("返回JSON：",data)
+                #data = json.loads(de)
                 code = int(data["code"])
                 msg = str(data["msg"])
                 #quota = (data['quota'])
