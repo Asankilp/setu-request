@@ -6,9 +6,9 @@ savedir.txt
 *.jpg
 *.gif
 /nonebot/__pycache__/
-/nonebot/setu/plugins/__pycache__/
+/nonebot/plugins/__pycache__/
 *.bak
 /nonebot/config.py
-/nonebot/config.json
+/nonebot/setubot_config.json
 /nonebot/setuhdisabled
 nul

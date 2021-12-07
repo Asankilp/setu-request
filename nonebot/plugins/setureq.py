@@ -17,19 +17,19 @@ setu_h_bannedkeywords = []
 setu_h_bannedtags = []
 config = ["{\"setu\":{\"banned_keywords\":[],\"banned_tags\":[]},\"setu-h\":{\"banned_keywords\":[],\"banned_tags\":[]}}"]
 #读取配置文件
-if os.path.exists("config.json") == False:
-    print("config.json not found. Creating...")
-    with open("config.json", mode="w") as newconf:
+if os.path.exists("setubot_config.json") == False:
+    print("setubot_config.json not found. Creating...")
+    with open("setubot_config.json", mode="w") as newconf:
         newconf.writelines(config)
 try:
-    with open("config.json", encoding="utf-8") as conf:
+    with open("setubot_config.json", encoding="utf-8") as conf:
         a = json.load(conf)
         setu_bannedkeywords = a['setu']['banned_keywords']
         setu_bannedtags = a['setu']['banned_tags']
         setu_h_bannedkeywords = a['setu-h']['banned_keywords']
         setu_h_bannedtags = a['setu-h']['banned_tags']
 except:
-    print("Unable to read config.json.")
+    print("Unable to read setubot_config.json.")
     pass
 #切换lolicon r18
 @on_command('togglesetuh', only_to_me=False, permission=perm.SUPERUSER)
