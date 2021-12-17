@@ -34,6 +34,18 @@ import os
 import sys
 from retrying import retry
 import seturequest
+config = ["{\"force_requests\": false}"]
+if os.path.exists("config.json") == False:
+    print("找不到config.json。正在创建...")
+    with open("config.json", mode="w") as newconf:
+        newconf.writelines(config)
+try:
+    with open("config.json", encoding="utf-8") as conf:
+        a = json.load(conf)
+        force_requests = a["force_requests"]
+except:
+    print("无法读取config.json.")
+    pass
 @retry(stop_max_attempt_number=3, wait_fixed=3000)#自动重试
 def download_img(dlurl): #定义下载函数
     global setudir
@@ -125,7 +137,7 @@ if str(setudir) == "":
 else:
     showdir = setudir
 
-if os.system("curl -V >nul") == 0: #what the fuck
+if os.system("curl -V >nul") == 0 and force_requests == False: #what the fuck
     try:
         os.remove("nul")
     except:
