@@ -88,8 +88,8 @@ def startdl(data):
         print ("url:",dlurl)
         print (f"主站URL:https://pixiv.net/i/{pid}")
         setuzhang = arraycount + 1#涩图张数
-        print ("当前为第" + str(setuzhang) + "/" + str(numb) + "张涩图")
-        print ("标题：" + title1 + " 作者：" + author1)
+        print (f"当前为第{str(setuzhang)}/{str(numb)}张涩图")
+        print (f"标题：{title1} 作者：{author1}")
         print ("标签：" + tags)
         #dlurl = input("url")
         download_img(dlurl)#下载文件
@@ -111,7 +111,7 @@ debugmode = 0 #设为1时进入字符串替换调试模式，用于调试去除�
 if debugmode == 1:
     print("进入字符串替换调试模式。")
     replacedebug = replacesym(input("请输入字符串："))
-    print ('替换后字符串：' + replacedebug)
+    print (f'替换后字符串：{replacedebug}')
     sys.exit(0)
 if os.path.exists("savedir.txt") is False:#检测文件是否存在，若不存在则创建
     createdirr = open ("./savedir.txt", mode="a")
@@ -137,7 +137,7 @@ else:
     usecurl = False
 print ("正在使用Lolicon API v1。无需提供APIKEY。")
 print ("在savedir.txt中可以输入自定义保存路径。")
-print ("当前保存路径："+ str(showdir))
+print (f"当前保存路径：{str(showdir)}")
 print ("为确保API运行正常，请勿请求过多涩图。")
 count = int(input('来几份涩图？ ') or 1)
 if count > 0:
@@ -155,12 +155,12 @@ if count > 0:
                 msg = str(data["msg"])
                 #quota = (data['quota'])
                 setufen = setufen + 1#涩图份数+1
-                print ("当前为第" + str(setufen) + "/" + str(count) + "份涩图")
+                print (f"当前为第{str(setufen)}/{str(count)}份涩图")
                 arraycount = 0 #每次获取json时重置数组顺序
                 if code == 0:
                     startdl(data)
                 else:
-                    print("\033[31m发生错误！代码：" + str(code) + "，错误信息：" + msg + "\033[0m")
+                    print(f"\033[31m发生错误！代码：{str(code)}，错误信息：{msg}\033[0m")
                     break
         else:
             print("\033[31m张数无效。\033[0m")
