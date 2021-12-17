@@ -138,15 +138,15 @@ else:
     showdir = setudir
 
 if os.system("curl -V >nul") == 0 and force_requests == False: #what the fuck
-    try:
-        os.remove("nul")
-    except:
-        pass
     print("\033[32m已安装curl。将使用curl进行下载。\033[0m")
     usecurl = True
 else:
     print("\033[33m未安装curl。将使用requests模块进行下载。\033[0m\n如果你已安装，请确认是否添加进环境变量。")
     usecurl = False
+try:
+    os.remove("nul")
+except:
+    pass
 print ("正在使用Lolicon API v1。无需提供APIKEY。")
 print ("在savedir.txt中可以输入自定义保存路径。")
 print (f"当前保存路径：{str(showdir)}")
