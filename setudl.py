@@ -155,7 +155,7 @@ count = int(input('来几份涩图？ ') or 1)
 if count > 0:
         numb = int(input("一份几张涩图？（最大为100）") or 1)
         if numb > 0:
-            word = urllib.parse.quote(input("搜索条件？（插画标题、作者、标签，留空则随机）"))#请求用户输入搜索条件+编码为url
+            word = input("搜索条件？（插画标题、作者、标签，留空则随机）")#请求用户输入搜索条件+编码为url
             r18 = int(input("R18状态（0为禁用，1为启用，2为混合）") or 0)
             #word.encode('utf8','strict')
             for i in range(count): #循环（涩图份数）次
