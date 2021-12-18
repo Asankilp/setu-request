@@ -34,7 +34,7 @@ import os
 import sys
 from retrying import retry
 import seturequest
-config = ["{\"force_requests\": false}"]
+config = ["{\"force_requests\": false, \"save_dir\": \"\"}"]
 if os.path.exists("config.json") == False:
     print("找不到config.json。正在创建...")
     with open("config.json", mode="w") as newconf:
@@ -43,9 +43,14 @@ try:
     with open("config.json", encoding="utf-8") as conf:
         a = json.load(conf)
         force_requests = a["force_requests"]
+        setudir = a["save_dir"]
 except:
     print("无法读取config.json.")
     pass
+if setudir == "":
+    showdir = os.getcwd()
+else:
+    showdir = setudir
 @retry(stop_max_attempt_number=3, wait_fixed=3000)#自动重试
 def download_img(dlurl): #定义下载函数
     global setudir
@@ -125,17 +130,17 @@ if debugmode == 1:
     replacedebug = replacesym(input("请输入字符串："))
     print (f'替换后字符串：{replacedebug}')
     sys.exit(0)
-if os.path.exists("savedir.txt") is False:#检测文件是否存在，若不存在则创建
-    createdirr = open ("./savedir.txt", mode="a")
-    createdirr.close()
-dirr = open ("./savedir.txt", mode="r", encoding='utf-8')#打开文件
-setudir = dirr.readline()
-setudir = setudir.replace("\n", "")
-dirr.close()
-if str(setudir) == "":
-    showdir = os.getcwd()
-else:
-    showdir = setudir
+# if os.path.exists("savedir.txt") is False:#检测文件是否存在，若不存在则创建
+#     createdirr = open ("./savedir.txt", mode="a")
+#     createdirr.close()
+# dirr = open ("./savedir.txt", mode="r", encoding='utf-8')#打开文件
+# setudir = dirr.readline()
+# setudir = setudir.replace("\n", "")
+# dirr.close()
+# if str(setudir) == "":
+#     showdir = os.getcwd()
+# else:
+#     showdir = setudir
 
 if os.system("curl -V >nul") == 0 and force_requests == False: #what the fuck
     print("\033[32m已安装curl。将使用curl进行下载。\033[0m")
