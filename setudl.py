@@ -1,29 +1,5 @@
 '''
 https://github.com/Asankilp/setu-request
-----------------变量详情-----------------
-ree：从涩图api拉取的数据
-de：解码后的json
-data：被代码搞过的json
-dlurl：涩图url
-
-pid：插画ID
-pic：插画的p数
-title：插画标题
-uid：插画作者UID
-author：插画作者
-extname：扩展名
-
------保存文件名自定义详细说明------
-通过修改代码可以自定义保存的文件名。
-于注释了 #拼接涩图文件名... 的代码处修改。
-可以使用预先定义的变量，须遵循Python的语法。
-格式例子：
-pid + "_p" + pic + extname
-    保存的文件名为"12345678_p0.png/jpg"
-pid + "_" + author + extname
-    保存的文件名为"12345678_插画作者.png/jpg"
-*扩展名为必填项。也可以自定义扩展名。
-*也可以使用高级语法。
 '''
 import urllib
 import urllib.request
@@ -90,8 +66,9 @@ def download_img(dlurl): #定义下载函数
         del r
         return 'error'
 def startdl(data):
+    realcount = data["count"]
     global arraycount, pid, pic, uid, title, author, dlurl
-    for a in range(numb):
+    for a in range(realcount):
         #定义一大堆变量
         pid = str(data["data"][arraycount]["pid"])
         pic = str(data["data"][arraycount]["p"])
@@ -105,7 +82,7 @@ def startdl(data):
         print ("url:",dlurl)
         print (f"主站URL:https://pixiv.net/i/{pid}")
         setuzhang = arraycount + 1#涩图张数
-        print (f"当前为第{str(setuzhang)}/{str(numb)}张涩图")
+        print (f"当前为第{str(setuzhang)}/{str(realcount)}张涩图")
         print (f"标题：{title1} 作者：{author1}")
         print ("标签：" + tags)
         #dlurl = input("url")
@@ -152,10 +129,9 @@ try:
     os.remove("nul")
 except:
     pass
-print ("正在使用Lolicon API v1。无需提供APIKEY。")
-print ("在savedir.txt中可以输入自定义保存路径。")
+print ("正在使用Lolicon API v1。")
+print ("在config.json中可以输入自定义保存路径。")
 print (f"当前保存路径：{str(showdir)}")
-print ("为确保API运行正常，请勿请求过多涩图。")
 count = int(input('来几份涩图？ ') or 1)
 if count > 0:
         numb = int(input("一份几张涩图？（最大为100）") or 1)
