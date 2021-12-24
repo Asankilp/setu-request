@@ -1,13 +1,13 @@
 import urllib.request, json, ssl, requests
 ssl._create_default_https_context = ssl._create_unverified_context
-def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.cat", size1200=False) -> dict:
+def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size1200=False) -> dict:
     '''
     从Lolicon API v1获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu-v1) ） 。  
     参数：  
     * keyword (`str`) 搜索涩图的关键字。 
     * r18 (`int`) R18状态。`0`为非R18，`1`为R18，`2`为混合，默认为`0`。传递这些数字以外的参数会抛出`ValueError`异常。
     * num (`int`) 单次返回的涩图数量，默认为`1`。不得超过100，否则会抛出`ValueError`异常。
-    * proxy (`str`) 返回的原图链接的域名，默认为`i.pixiv.cat`。为`disable`时返回真正的原图链接。
+    * proxy (`str`) 返回的原图链接的域名，默认为`i.pixiv.re`。为`disable`时返回真正的原图链接。
     * size1200 (`bool`) 是否使用长或宽最大为 1200px 的缩略图，默认为`False`。  
 
     '''
@@ -21,7 +21,7 @@ def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.cat", size1
     response = urllib.request.urlopen(f"https://api.lolicon.app/setu/v1/?keyword={urllib.parse.quote(keyword)}&r18={r18}&num={num}&proxy={proxy}&size1200={str(size1200).lower()}")
     data = json.loads(response.read().decode())
     return data
-def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.cat", dateAfter=None, dateBefore=None, dsc=False) -> dict:
+def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re", dateAfter=None, dateBefore=None, dsc=False) -> dict:
     '''
     从Lolicon API v2获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu) ） 。  
     参数：  
@@ -31,7 +31,7 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
     * num (`int`) 单次返回的涩图数量，默认为`1`。不得超过100，否则会抛出`ValueError`异常。
     * uid (`list`) 返回指定`uid`作者的作品，最多`20`个。
     * size (`list`) 返回指定图片规格的地址，默认为`["original"]`（[详细说明](https://api.lolicon.app/#/setu?id=size)）。
-    * proxy (`str`) 设置图片地址所使用的在线反代服务，默认为`i.pixiv.cat`。为任意假值（如`false`, `0`, `null`）时返回真正的原图链接（[详细说明](https://api.lolicon.app/#/setu?id=proxy)）。
+    * proxy (`str`) 设置图片地址所使用的在线反代服务，默认为`i.pixiv.re`。为任意假值（如`false`, `0`, `null`）时返回真正的原图链接（[详细说明](https://api.lolicon.app/#/setu?id=proxy)）。
     * dateAfter (`int`) 返回在这个时间及以后上传的作品；时间戳，单位为毫秒。
     * dateBefore (`int`) 返回在这个时间及以前上传的作品；时间戳，单位为毫秒
     * dsc (`bool`) 禁用对某些缩写`keyword`和`tag`的自动转换，默认为`false`（[详细说明](https://api.lolicon.app/#/setu?id=dsc)）。
