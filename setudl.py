@@ -25,6 +25,7 @@ pid + "_" + author + extname
 *扩展名为必填项。也可以自定义扩展名。
 *也可以使用高级语法。
 '''
+###############################定义函数和初始化##########################################
 import urllib
 import urllib.request
 import urllib.parse
@@ -123,25 +124,6 @@ def replacesym(zifu):
     result = result.replace('|', '')
     result = result.replace('\"', '')
     return result
-setufen = 0
-debugmode = 0 #设为1时进入字符串替换调试模式，用于调试去除不能作为文件名的符号功能是否正常运行
-if debugmode == 1:
-    print("进入字符串替换调试模式。")
-    replacedebug = replacesym(input("请输入字符串："))
-    print (f'替换后字符串：{replacedebug}')
-    sys.exit(0)
-# if os.path.exists("savedir.txt") is False:#检测文件是否存在，若不存在则创建
-#     createdirr = open ("./savedir.txt", mode="a")
-#     createdirr.close()
-# dirr = open ("./savedir.txt", mode="r", encoding='utf-8')#打开文件
-# setudir = dirr.readline()
-# setudir = setudir.replace("\n", "")
-# dirr.close()
-# if str(setudir) == "":
-#     showdir = os.getcwd()
-# else:
-#     showdir = setudir
-
 if os.system("curl -V >nul") == 0 and force_requests == False: #what the fuck
     print("\033[32m已安装curl。将使用curl进行下载。\033[0m")
     usecurl = True
@@ -152,6 +134,14 @@ try:
     os.remove("nul")
 except:
     pass
+setufen = 0
+debugmode = 0 #设为1时进入字符串替换调试模式，用于调试去除不能作为文件名的符号功能是否正常运行
+if debugmode == 1:
+    print("进入字符串替换调试模式。")
+    replacedebug = replacesym(input("请输入字符串："))
+    print (f'替换后字符串：{replacedebug}')
+    sys.exit(0)
+###################################主体############################################
 print ("正在使用Lolicon API v1。无需提供APIKEY。")
 print ("在savedir.txt中可以输入自定义保存路径。")
 print (f"当前保存路径：{str(showdir)}")
