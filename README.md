@@ -39,8 +39,11 @@ get_setu_from_fantasyzone(lib="pc", r18=0, not_proxy=False)
 从FantasyZone API获取图片。将返回图片URL（详情参考[官方文档](https://api.fantasyzone.cc/#/tu) ）。  
 参数：   
 * __lib__ (`str`) 使用的图库，`pc`为横向动漫壁纸图片 ，`m`为纵向动漫壁纸图片，`mc`为FantasyZone Server截图，`pixiv`为pixiv库图片。传递这些以外的参数会抛出`ValueError`异常。
+* __type__ (`str`) 返回的图片类型，`json`为json格式，`url`为图片URL。传递这些以外的参数会抛出`ValueError`异常。
 * __r18__ (`int`) R18状态。`0`为非R18，`1`为R18，`2`为混合，默认为`0`，只能在图库为`pixiv`时生效。传递这些数字以外的参数会抛出`ValueError`异常。
+* __num__ (`int`) 单次返回的图片数量，默认为`1`，仅在图库为`pixiv`时需要提供。不得超过10，否则会抛出`ValueError`异常。
 * __not_proxy__ (`bool`) 是否关闭代理模式。默认为`False`。
+* __key__ (`str`) 请求密钥，调用`pixiv`图库时必填。
 ### 使用实例
 ```python
 >>> from seturequest import get_setu_from_loliconv1 as llc

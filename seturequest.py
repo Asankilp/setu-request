@@ -71,24 +71,43 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
     response.encoding="utf-8"
     returnjson = response.content.decode('utf-8')
     return eval(returnjson)
-def get_setu_from_fantasyzone(lib="pc", r18=0, not_proxy=False) -> str:
+def get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=False, key="") -> str:
     '''
     从FantasyZone API获取图片。将返回图片URL（详情参考[官方文档](https://api.fantasyzone.cc/#/tu) ）。  
     参数：   
     * lib (`str`) 使用的图库，`pc`为横向动漫壁纸图片 ，`m`为纵向动漫壁纸图片，`mc`为FantasyZone Server截图，`pixiv`为pixiv库图片。传递这些以外的参数会抛出`ValueError`异常。
+    * type (`str`) 返回的图片类型，`json`为json格式，`url`为图片URL。传递这些以外的参数会抛出`ValueError`异常。
     * r18 (`int`) R18状态。`0`为非R18，`1`为R18，`2`为混合，默认为`0`，只能在图库为`pixiv`时生效。传递这些数字以外的参数会抛出`ValueError`异常。
+    * num (`int`) 单次返回的图片数量，默认为`1`，仅在图库为`pixiv`时需要提供。不得超过10，否则会抛出`ValueError`异常。
     * not_proxy (`bool`) 是否关闭代理模式。默认为`False`。
+    * key (`str`) 请求密钥，调用`pixiv`图库时必填。
     '''
     LIB_ALLOWED_ARG = ["pc","m","pixiv","mc"]
+    TYPE_ALLOWED_ARG = ["json","url"]
     R18_ALLOWED_ARG = [0,1,2]
     if lib not in LIB_ALLOWED_ARG:
         raise ValueError("'lib' argument can only be 'pc', 'm', 'pixiv' and 'mc'")
+    elif type not in TYPE_ALLOWED_ARG:
+        raise ValueError("'type' argument can only be 'json' and 'url'")
     elif r18 not in R18_ALLOWED_ARG:
         raise ValueError("'r18' argument can only be 0, 1 or 2")
     elif not_proxy == False:
         not_proxy = 0
     elif not_proxy == True:
         not_proxy = 1
-    response = urllib.request.urlopen(f"http://api.fantasyzone.cc/tu/?class={lib}&r18={r18}&not_proxy={str(not_proxy).lower()}&type=url")
-    rediecturl = str(response.geturl())
-    return rediecturl
+    if num <= 0:
+        raise ValueError("'num' argument can only be <0 and >= 10")
+    elif num > 10:
+        raise ValueError("'num' argument can only be <0 and >= 10")
+    if lib == "pixiv" and key == "":
+        raise ValueError("'key' argument cannot be empty when using 'pixiv' library")
+    url = f"http://api.fantasyzone.cc/tu/?type={type}&class={lib}&r18={r18}&not_proxy={str(not_proxy).lower()}&key={key}"
+    if type == "json":
+        url += f"&num={num}"
+    if type == "url":
+        response = urllib.request.urlopen(url)
+        rediecturl = str(response.geturl())
+        return rediecturl
+    elif type == "json":
+        returnjson = urllib.request.urlopen(url).read().decode('utf-8')
+        return eval(returnjson)
