@@ -18,7 +18,7 @@ def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size12
         raise ValueError("'num' argument can only be <0 and >= 100")
     elif num > 100:
         raise ValueError("'num' argument can only be <0 and >= 100")
-    response = urllib.request.urlopen(f"https://api.lolicon.app/setu/v1/?keyword={urllib.parse.quote(keyword)}&r18={r18}&num={num}&proxy={proxy}&size1200={str(size1200).lower()}")
+    response = urllib.request.urlopen(f"https://api.lolicon.app/setu/v1/?keyword={urllib.parse.quote(keyword)}&r18={r18}&num={int(num)}&proxy={proxy}&size1200={str(size1200).lower()}")
     data = json.loads(response.read().decode())
     return data
 def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re", dateAfter=None, dateBefore=None, dsc=False) -> dict:
@@ -38,11 +38,12 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
     '''
     global false, null, true
     false = null = true = ''
+    num = int(num)
     requestjson = {
         "keyword": keyword,
         "tag": tag,
         "r18": r18,
-        "num": num,
+        "num": int(num),
         "size": size,
         "proxy": proxy,
         "dsc": str(dsc).lower()
