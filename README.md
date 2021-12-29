@@ -34,7 +34,7 @@ get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["origi
 * __dateBefore__ (`int`) 返回在这个时间及以前上传的作品；时间戳，单位为毫秒
 * __dsc__ (`bool`) 禁用对某些缩写`keyword`和`tag`的自动转换，默认为`false`（[详细说明](https://api.lolicon.app/#/setu?id=dsc)）。
 ```python
-get_setu_from_fantasyzone(lib="pc", r18=0, not_proxy=False)
+get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=False, key="")
 ```
 从FantasyZone API获取图片。将返回图片URL（详情参考[官方文档](https://api.fantasyzone.cc/#/tu) ）。  
 参数：   
