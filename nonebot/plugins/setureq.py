@@ -3,7 +3,7 @@ from nonebot import on_command, CommandSession, permission as perm
 import urllib
 import urllib.parse
 import json
-import time
+import datetime
 import sys
 import os
 import ssl
@@ -17,7 +17,7 @@ setu_bannedtags = []
 setu_h_bannedkeywords = []
 setu_h_bannedtags = []
 config = ["{\"setu\":{\"banned_keywords\":[],\"banned_tags\":[]},\"setu-h\":{\"banned_keywords\":[],\"banned_tags\":[]}}"]
-clockstart = time.process_time()
+clockstart = datetime.datetime.now()
 #读取配置文件
 if os.path.exists("setubot_config.json") == False:
     print("setubot_config.json not found. Creating...")
@@ -98,7 +98,7 @@ async def _(session: CommandSession):
     await session.send("[CQ:image,file="+rediecturl+"]")
 @on_command("ver", only_to_me=False)
 async def _(session: CommandSession):
-    await session.send(f"setu_qqbot（https://github.com/Asankilp/setu-request）\n本机器人基于NoneBot。涩图API为Lolicon API v1（api.lolicon.app）。\n运行环境：\nPython {sys.version}\n操作系统：\n{platform.platform()} {platform.version()}\n总运行时间：\n{clockstart - time.process_time()}s")
+    await session.send(f"setu_qqbot（https://github.com/Asankilp/setu-request）\n本机器人基于NoneBot。涩图API为Lolicon API v1（api.lolicon.app）。\n运行环境：\nPython {sys.version}\n操作系统：\n{platform.platform()} {platform.version()}\n总运行时间：\n{datetime.datetime.now() - clockstart}")
 @on_command("muli", aliases=['目力', '嚎叫'], only_to_me=False)
 async def _(session: CommandSession):
     await session.send("[CQ:record,file=https://asankilp.github.io/muli.mp3]")
