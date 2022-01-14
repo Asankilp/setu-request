@@ -109,13 +109,13 @@ async def _(session: CommandSession):
 @on_command("ver", only_to_me=False)
 async def _(session: CommandSession):
     await session.send(f"""setu_qqbot（https://github.com/Asankilp/setu-request）
-    \n本机器人基于NoneBot。涩图API为Lolicon API v1（api.lolicon.app）。
-    \n运行环境：
-    \nPython {sys.version}
-    \n操作系统：
-    \n{platform.platform()} {platform.version()}
-    \n总运行时间：
-    \n{datetime.datetime.now() - clockstart}""")
+    本机器人基于NoneBot。涩图API为Lolicon API v1（api.lolicon.app）。
+    运行环境：
+    Python {sys.version}
+    操作系统：
+    {platform.platform()} {platform.version()}
+    总运行时间：
+    {datetime.datetime.now() - clockstart}""")
 
 
 @on_command("muli", aliases=['目力', '嚎叫'], only_to_me=False)
@@ -126,13 +126,13 @@ async def _(session: CommandSession):
 @on_command("help", only_to_me=False)
 async def _(session: CommandSession):
     await session.send("""用法：
-    \n/setu [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图。未提供关键词将随机搜索。
-    \n/setub 从 https://iw233.cn/ 的API（http://iw233.cn/api/Random.php）随机获取涩图。
-    \n/setuc 从FantasyZone API（https://api.fantasyzone.cc/#/tu）随机获取涩图。
-    \n/setu-h [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图(R-18)。未提供关键词将随机搜索。
-    \n/ver 查看Bot信息
-    \n/sendmsg <消息> 使此机器人发送指定的消息。仅超级用户可用。
-    \n/togglesetuh 切换/setu-h命令的可用性（启用/禁用）。对所有会话生效。仅超级用户可用。""")
+    /setu [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图。未提供关键词将随机搜索。
+    /setub 从 https://iw233.cn/ 的API（http://iw233.cn/api/Random.php）随机获取涩图。
+    /setuc 从FantasyZone API（https://api.fantasyzone.cc/#/tu）随机获取涩图。
+    /setu-h [关键词] 从Lolicon API模糊搜索插画标题，作者，标签的涩图(R-18)。未提供关键词将随机搜索。
+    /ver 查看Bot信息
+    /sendmsg <消息> 使此机器人发送指定的消息。仅超级用户可用。
+    /togglesetuh 切换/setu-h命令的可用性（启用/禁用）。对所有会话生效。仅超级用户可用。""")
 
 
 @on_command("sendmsg", only_to_me=False, permission=perm.SUPERUSER)
