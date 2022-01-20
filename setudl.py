@@ -8,8 +8,9 @@ import os
 import sys
 from retrying import retry
 import seturequest
+
 config = ["{\"force_requests\": false, \"save_dir\": \"\"}"]
-if os.path.exists("config.json") == False:
+if not os.path.exists("config.json"):
     print("找不到config.json。正在创建...")
     with open("config.json", mode="w") as newconf:
         newconf.writelines(config)
@@ -32,14 +33,14 @@ def download_img(dlurl):  # 定义下载函数
     global setudir, finishedcounter, failedcounter, skippedcounter
     extname = "." + dlurl.split(".").pop()
     setuname = pid + "_p" + pic + "-" + title + \
-        extname  # 拼接涩图文件名，可以使用变量自定义文件名，目前只可通过修改代码实现自定义
+               extname  # 拼接涩图文件名，可以使用变量自定义文件名，目前只可通过修改代码实现自定义
     setupath = os.path.join(setudir, setuname)
-    if usecurl == True:
+    if usecurl:
         if os.path.exists(setupath) is False:
             if str(setudir) is None:  # 如果savedir.txt没内容，则取默认值
                 setudir = "./"
             print("\033[33m下载中...\033[0m")
-            if os.system("curl "+dlurl+" -o "+"\""+os.path.join(setudir, setuname)+"\""+" -#") == 0:
+            if os.system("curl " + dlurl + " -o " + "\"" + os.path.join(setudir, setuname) + "\"" + " -#") == 0:
                 print("\033[32m下载完成\033[0m")
                 finishedcounter = finishedcounter + 1
                 return 'done'
@@ -97,13 +98,13 @@ def startdl(data):
         print(f"当前为第{str(setuzhang)}/{str(realcount)}张涩图")
         print(f"标题：{title1} 作者：{author1}")
         print("标签：" + tags)
-        #dlurl = input("url")
+        # dlurl = input("url")
         download_img(dlurl)  # 下载文件
         arraycount = arraycount + 1  # 下载一张涩图后使数组顺序+1以便下载下一张涩图
 
 
 def replacesym(zifu):
-    #spsymbol = ['\\',"|","/","?","<",">",":","*","\""]
+    # spsymbol = ['\\',"|","/","?","<",">",":","*","\""]
     result = zifu.replace('\\', '')
     result = result.replace('/', '')
     result = result.replace('?', '？')
@@ -152,10 +153,10 @@ if count > 0:
                 keyword=word, num=numb, r18=r18)  # 从api获取json
             # de = ree.read().decode() #解码
             print("返回JSON：", data)
-            #data = json.loads(de)
+            # data = json.loads(de)
             code = int(data["code"])
             msg = str(data["msg"])
-            #quota = (data['quota'])
+            # quota = (data['quota'])
             setufen = setufen + 1  # 涩图份数+1
             print(f"当前为第{str(setufen)}/{str(count)}份涩图")
             arraycount = 0  # 每次获取json时重置数组顺序

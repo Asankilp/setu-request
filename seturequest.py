@@ -1,5 +1,8 @@
-import urllib.request, json, ssl, requests
-ssl._create_default_https_context = ssl._create_unverified_context
+import json
+import requests
+import urllib.request
+
+
 def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size1200=False) -> dict:
     '''
     从Lolicon API v1获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu-v1) ） 。  
@@ -11,17 +14,21 @@ def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size12
     * size1200 (`bool`) 是否使用长或宽最大为 1200px 的缩略图，默认为`False`。  
 
     '''
-    R18_ALLOWED_ARG = [0,1,2]
+    R18_ALLOWED_ARG = [0, 1, 2]
     if r18 not in R18_ALLOWED_ARG:
         raise ValueError("'r18' argument can only be 0, 1 or 2")
     elif num <= 0:
         raise ValueError("'num' argument can only be <0 and >= 100")
     elif num > 100:
         raise ValueError("'num' argument can only be <0 and >= 100")
-    response = urllib.request.urlopen(f"https://api.lolicon.app/setu/v1/?keyword={urllib.parse.quote(keyword)}&r18={r18}&num={int(num)}&proxy={proxy}&size1200={str(size1200).lower()}")
+    response = urllib.request.urlopen(
+        f"https://api.lolicon.app/setu/v1/?keyword={urllib.parse.quote(keyword)}&r18={r18}&num={int(num)}&proxy={proxy}&size1200={str(size1200).lower()}")
     data = json.loads(response.read().decode())
     return data
-def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re", dateAfter=None, dateBefore=None, dsc=False) -> dict:
+
+
+def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re",
+                            dateAfter=None, dateBefore=None, dsc=False) -> dict:
     '''
     从Lolicon API v2获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu) ） 。  
     参数：  
@@ -54,9 +61,9 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
         requestjson["dateAfter"] = dateAfter
     if dateBefore is not None:
         requestjson["dateBefore"] = dateBefore
-    #print(requestjson)
+    # print(requestjson)
     SIZE_ARGS = ["original", "regular", "small", "thumb", "mini"]
-    R18_ALLOWED_ARG = [0,1,2]
+    R18_ALLOWED_ARG = [0, 1, 2]
     if r18 not in R18_ALLOWED_ARG:
         raise ValueError("'r18' argument can only be 0, 1 or 2")
     elif num <= 0:
@@ -68,9 +75,11 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
             raise ValueError("'size' argument can only have 'original', 'regular', 'small', 'thumb', and 'mini'")
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url='https://api.lolicon.app/setu/v2', headers=headers, data=json.dumps(requestjson))
-    response.encoding="utf-8"
+    response.encoding = "utf-8"
     returnjson = response.content.decode('utf-8')
     return eval(returnjson)
+
+
 def get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=False, key="") -> str:
     '''
     从FantasyZone API获取图片。将返回图片URL（详情参考[官方文档](https://api.fantasyzone.cc/#/tu) ）。  
@@ -82,9 +91,9 @@ def get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=Fal
     * not_proxy (`bool`) 是否关闭代理模式。默认为`False`。
     * key (`str`) 请求密钥，调用`pixiv`图库时必填。
     '''
-    LIB_ALLOWED_ARG = ["pc","m","pixiv","mc"]
-    TYPE_ALLOWED_ARG = ["json","url"]
-    R18_ALLOWED_ARG = [0,1,2]
+    LIB_ALLOWED_ARG = ["pc", "m", "pixiv", "mc"]
+    TYPE_ALLOWED_ARG = ["json", "url"]
+    R18_ALLOWED_ARG = [0, 1, 2]
     if lib not in LIB_ALLOWED_ARG:
         raise ValueError("'lib' argument can only be 'pc', 'm', 'pixiv' and 'mc'")
     elif type not in TYPE_ALLOWED_ARG:
