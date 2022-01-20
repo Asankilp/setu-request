@@ -1,6 +1,5 @@
 import os
 import re
-import ssl
 import sys
 import json
 import urllib
@@ -8,7 +7,6 @@ import platform
 import datetime
 import urllib.parse
 from nonebot import on_command, CommandSession, permission as perm
-ssl._create_default_https_context = ssl._create_unverified_context
 filename = 'setuhdisabled'
 setu_bannedkeywords = []
 setu_bannedtags = []
@@ -17,7 +15,7 @@ setu_h_bannedtags = []
 config = ["{\"setu\":{\"banned_keywords\":[],\"banned_tags\":[]},\"setu-h\":{\"banned_keywords\":[],\"banned_tags\":[]}}"]
 clockstart = datetime.datetime.now()
 # 读取配置文件
-if os.path.exists("setubot_config.json") == False:
+if not os.path.exists("setubot_config.json"):
     print("setubot_config.json not found. Creating...")
     with open("setubot_config.json", mode="w") as newconf:
         newconf.writelines(config)
@@ -36,7 +34,7 @@ except:
 
 @on_command('togglesetuh', only_to_me=False, permission=perm.SUPERUSER)
 async def _(session: CommandSession):
-    if os.path.exists(filename) == True:
+    if os.path.exists(filename):
         os.remove(filename)
         await session.send("已启用/setu-h。")
     else:
