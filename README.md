@@ -45,6 +45,12 @@ get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=False, 
 * __num__ (`int`) 单次返回的图片数量，默认为`1`，仅在图库为`pixiv`时需要提供。不得超过10，否则会抛出`ValueError`异常。
 * __not_proxy__ (`bool`) 是否关闭代理模式。默认为`False`。
 * __key__ (`str`) 请求密钥，调用`pixiv`图库时必填。
+```python
+get_setu_from_echs(lib="s")
+```
+从二次寒数的API获取壁纸。将返回图片URL（详情参考[官方说明](http://echs.live/thread-5.htm) ）。
+参数：
+* __lib__ (`str`) 图片类型，`s`为手机壁纸，`d`为电脑壁纸，默认为`s`。传递这些以外的参数会抛出`ValueError`异常。
 ### 使用实例
 ```python
 >>> from seturequest import get_setu_from_loliconv1 as llc

@@ -120,3 +120,18 @@ def get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=Fal
     elif type == "json":
         returnjson = urllib.request.urlopen(url).read().decode('utf-8')
         return eval(returnjson)
+
+
+def get_setu_from_echs(lib="s") -> str:
+    '''
+    从二次寒数的API获取壁纸。将返回图片URL（详情参考[官方说明](http://echs.live/thread-5.htm)）。
+    参数：
+    * lib (`str`) 图片类型，`s`为手机壁纸，`d`为电脑壁纸，默认为`s`。传递这些以外的参数会抛出`ValueError`异常。
+    '''
+    LIB_ALLOWED_ARG = ["s", "d"]
+    if lib not in LIB_ALLOWED_ARG:
+        raise ValueError("'lib' argument can only be 's' and 'd'")
+    url = f"http://echs.live/{lib}"
+    response = urllib.request.urlopen(url)
+    rediecturl = str(response.geturl())
+    return rediecturl
