@@ -50,6 +50,7 @@ async def _(session: CommandSession):
 
 @on_command('setu', aliases=['来一份涩图', '老鸭粉丝汤'], only_to_me=False)
 async def _(session: CommandSession):
+    global setu_counter
     arg = session.current_arg_text.strip()
     for i in setu_bannedkeywords:
         if re.search(i, arg) is not None:
@@ -73,6 +74,7 @@ async def _(session: CommandSession):
 
 @on_command('setu-h', only_to_me=False)
 async def _(session: CommandSession):
+    global setu_h_counter
     arg = session.current_arg_text.strip()
     if os.path.exists(filename) is False:
         for i in setu_h_bannedkeywords:
@@ -96,6 +98,7 @@ async def _(session: CommandSession):
 
 @on_command('setub', only_to_me=False)
 async def _(session: CommandSession):
+    global setub_counter
     await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
     a = urllib.request.urlopen("http://iw233.cn/api/Random.php")
     b = str(a.geturl())
@@ -106,6 +109,7 @@ async def _(session: CommandSession):
 
 @on_command("setuc", only_to_me=False)
 async def _(session: CommandSession):
+    global setuc_counter
     await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
     data = urllib.request.urlopen("http://api.fantasyzone.cc/tu/?type=url")
     rediecturl = str(data.geturl())
