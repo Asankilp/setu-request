@@ -16,6 +16,6 @@ if __name__ == '__main__':
     nonebot.init(bot_config)
     nonebot.load_plugins(
         path.join(path.dirname(__file__), 'bot_plugins'),
-        'bot-plugins'
+        'bot_plugins'
     )
     nonebot.run()
