@@ -15,6 +15,10 @@ setu_h_bannedkeywords = []
 setu_h_bannedtags = []
 config = ["{\"setu\":{\"banned_keywords\":[],\"banned_tags\":[]},\"setu-h\":{\"banned_keywords\":[],\"banned_tags\":[]}}"]
 clockstart = datetime.datetime.now()
+setu_counter = 0
+setub_counter = 0
+setuc_counter = 0
+setu_h_counter = 0
 # 读取配置文件
 if not os.path.exists("setubot_config.json"):
     print("setubot_config.json not found. Creating...")
@@ -60,6 +64,7 @@ async def _(session: CommandSession):
                 return
         await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\n标签："+str(setu_data[4])+"\nURL:"+setu_data[0])
         await session.send("[CQ:image,file="+setu_data[0]+"]")
+        setu_counter + 1
     else:
         await session.send("代码："+setu_data[0]+"\n错误信息："+setu_data[1])
     del setu_data
@@ -82,6 +87,7 @@ async def _(session: CommandSession):
                     await session.send("API返回的涩图的其中一个或多个标签已被屏蔽。")
                     return
             await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\nURL:"+setu_data[0]+"\n*不会发送图片。")
+            setu_h_counter + 1
         else:
             await session.send("代码："+setu_data[0]+"\n错误信息："+setu_data[1])
         del setu_data
@@ -94,6 +100,7 @@ async def _(session: CommandSession):
     a = urllib.request.urlopen("http://iw233.cn/api/Random.php")
     b = str(a.geturl())
     await session.send("[CQ:image,file="+b+"]")
+    setub_counter + 1
 # fantasyzone
 
 
@@ -103,6 +110,7 @@ async def _(session: CommandSession):
     data = urllib.request.urlopen("http://api.fantasyzone.cc/tu/?type=url")
     rediecturl = str(data.geturl())
     await session.send("[CQ:image,file="+rediecturl+"]")
+    setuc_counter + 1
 
 
 @on_command("ver", only_to_me=False)
@@ -114,7 +122,11 @@ async def _(session: CommandSession):
     操作系统：
     {platform.platform()} {platform.version()}
     总运行时间：
-    {datetime.datetime.now() - clockstart}""")
+    {datetime.datetime.now() - clockstart}
+    /setu 成功次数：{setu_counter}
+    /setu-h 成功次数：{setu_h_counter}
+    /setub 成功次数：{setub_counter}
+    /setuc成功次数：{setuc_counter}""")
 
 
 @on_command("muli", aliases=['目力', '嚎叫'], only_to_me=False)
