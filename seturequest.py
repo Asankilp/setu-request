@@ -2,7 +2,6 @@ import json
 import requests
 import urllib.request
 
-
 def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size1200=False) -> dict:
     '''
     从Lolicon API v1获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu-v1) ） 。  

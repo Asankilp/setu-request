@@ -5,11 +5,10 @@ savedir.txt
 *.png
 *.jpg
 *.gif
-/nonebot/__pycache__/
-/nonebot/plugins/__pycache__/
+/bot_plugins/__pycache__/
 *.bak
-/nonebot/config.py
-/nonebot/setubot_config.json
-/nonebot/setuhdisabled
+config.py
+setubot_config.json
+setuhdisabled
 nul
 config.json
