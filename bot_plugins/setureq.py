@@ -171,7 +171,7 @@ async def get_setu(arg="") -> str:
     p1, p2, p3 = arg.partition("&")  # 阻止用户自行添加参数
     word = urllib.parse.quote(p1)
     ree = urllib.request.urlopen(
-        'https://api.lolicon.app/setu/v1/?size1200=true&proxy=i.pixiv.re&keyword='+word)  # 从api获取json
+        'https://api.lolicon.app/setu/v1/?num=1&size1200=true&proxy=i.pixiv.re&keyword='+word)  # 从api获取json
     de = ree.read().decode()  # 解码
     data = json.loads(de)
     code = int(data["code"])
@@ -194,7 +194,7 @@ async def get_setu_h(arg="") -> str:
     p1, p2, p3 = arg.partition("&")  # 阻止用户自行添加参数
     word = urllib.parse.quote(p1)
     ree = urllib.request.urlopen(
-        'https://api.lolicon.app/setu/v1/?size1200=true&proxy=i.pixiv.re&r18=1&keyword='+word)  # 从api获取json
+        'https://api.lolicon.app/setu/v1/?num=1&size1200=true&proxy=i.pixiv.re&r18=1&keyword='+word)  # 从api获取json
     de = ree.read().decode()  # 解码
     data = json.loads(de)
     code = int(data["code"])
