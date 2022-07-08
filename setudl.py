@@ -116,17 +116,19 @@ def replacesym(zifu):
     result = result.replace('\"', '')
     return result
 
+if os.name == 'nt':
+    null = "nul"
+elif os.name == 'posix':
+    null = "/dev/null"
 
-if os.system("curl -V >nul") == 0 and force_requests == False:  # what the fuck
+
+if os.system(f"curl -V >> {null}") == 0 and force_requests == False:  # what the fuck
     print("\033[32m已安装curl。将使用curl进行下载。\033[0m")
     usecurl = True
 else:
     print("\033[33m未安装curl。将使用requests模块进行下载。\033[0m\n如果你已安装，请确认是否添加进环境变量。")
     usecurl = False
-try:
-    os.remove("nul")
-except:
-    pass
+
 setufen = 0
 debugmode = 0  # 设为1时进入字符串替换调试模式，用于调试去除不能作为文件名的符号功能是否正常运行
 finishedcounter = 0
