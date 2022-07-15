@@ -7,7 +7,8 @@ savedir.txt
 *.gif
 /bot_plugins/__pycache__/
 *.bak
-config.py
+bot_config.py
+/setubot_urllog/
 setubot_config.json
 setuhdisabled
 nul

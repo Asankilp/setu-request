@@ -9,11 +9,14 @@ import sys
 from retrying import retry
 import seturequest
 
-config = ["{\"force_requests\": false, \"save_dir\": \"\"}"]
+config = {
+    "force_requests": False,
+    "save_dir": ""
+    }
 if not os.path.exists("config.json"):
     print("找不到config.json。正在创建...")
     with open("config.json", mode="w") as newconf:
-        newconf.writelines(config)
+        newconf.writelines(json.dumps(config))
 try:
     with open("config.json", encoding="utf-8") as conf:
         a = json.load(conf)

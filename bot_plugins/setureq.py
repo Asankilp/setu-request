@@ -8,22 +8,37 @@ import datetime
 import urllib.parse
 
 from nonebot import on_command, CommandSession, permission as perm
+import nonebot.log as log
 filename = 'setuhdisabled'
 setu_bannedkeywords = []
 setu_bannedtags = []
 setu_h_bannedkeywords = []
 setu_h_bannedtags = []
-config = ["{\"setu\":{\"banned_keywords\":[],\"banned_tags\":[]},\"setu-h\":{\"banned_keywords\":[],\"banned_tags\":[]}}"]
+config = {
+    "setu":{
+        "banned_keywords":[],
+        "banned_tags":[]
+    },
+    "setu-h":{
+        "banned_keywords":[],
+        "banned_tags":[]
+    },
+    "global":{
+        "enable_url_logging": False
+    }
+}
 clockstart = datetime.datetime.now()
+log.logger.debug("机器人运行时间："+str(clockstart))
+logfilename = f"{clockstart}.log"
 setu_counter = 0
 setub_counter = 0
 setuc_counter = 0
 setu_h_counter = 0
 # 读取配置文件
 if not os.path.exists("setubot_config.json"):
-    print("setubot_config.json not found. Creating...")
+    log.logger.debug("setubot_config.json not found. Creating...")
     with open("setubot_config.json", mode="w") as newconf:
-        newconf.writelines(config)
+        newconf.writelines(json.dumps(config))
 try:
     with open("setubot_config.json", encoding="utf-8") as conf:
         a = json.load(conf)
@@ -31,8 +46,9 @@ try:
         setu_bannedtags = a['setu']['banned_tags']
         setu_h_bannedkeywords = a['setu-h']['banned_keywords']
         setu_h_bannedtags = a['setu-h']['banned_tags']
+        global_enable_url_logging = a['global']['enable_url_logging']
 except:
-    print("Unable to read setubot_config.json.")
+    log.logger.debug("Unable to read setubot_config.json.")
     pass
 # 切换lolicon r18
 
@@ -63,6 +79,7 @@ async def _(session: CommandSession):
             if tag in setu_bannedtags:
                 await session.send("API返回的涩图的其中一个或多个标签已被屏蔽。")
                 return
+        await url_log(setu_data[0])
         await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\n标签："+str(setu_data[4])+"\nURL:"+setu_data[0])
         await session.send("[CQ:image,file="+setu_data[0]+"]")
         setu_counter = setu_counter + 1
@@ -88,6 +105,7 @@ async def _(session: CommandSession):
                 if tag in setu_h_bannedtags:
                     await session.send("API返回的涩图的其中一个或多个标签已被屏蔽。")
                     return
+            await url_log(setu_data[0])
             await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\nURL:"+setu_data[0]+"\n*不会发送图片。")
             setu_h_counter = setu_h_counter + 1
         else:
@@ -102,6 +120,7 @@ async def _(session: CommandSession):
     await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
     a = urllib.request.urlopen("http://iw233.cn/api/Random.php")
     b = str(a.geturl())
+    await url_log(b)
     await session.send("[CQ:image,file="+b+"]")
     setub_counter = setub_counter + 1
 # fantasyzone
@@ -113,6 +132,7 @@ async def _(session: CommandSession):
     await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
     data = urllib.request.urlopen("http://api.fantasyzone.cc/tu/?type=url")
     rediecturl = str(data.geturl())
+    await url_log(rediecturl)
     await session.send("[CQ:image,file="+rediecturl+"]")
     setuc_counter = setuc_counter + 1
 
@@ -209,3 +229,14 @@ async def get_setu_h(arg="") -> str:
         return [dlurl, pid, author, title, tags]
     else:
         return [str(code), msg]
+
+async def url_log(url="") -> str:
+    try:
+        os.mkdir("setubot_urllog")
+    except:
+        pass
+    if global_enable_url_logging == True:
+        with open(os.path.join("setubot_urllog", logfilename), mode="a") as logfile:
+            logfile.write(url+"\n")
+            logfile.close()
+                
