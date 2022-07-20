@@ -148,7 +148,7 @@ print("在config.json中可以输入自定义保存路径。")
 print(f"当前保存路径：{str(showdir)}")
 count = int(input('来几份涩图？ ') or 1)
 if count > 0:
-    numb = int(input("一份几张涩图？（最大为100）") or 1)
+    numb = int(input("一份几张涩图？（最大为20）") or 1)
     if numb > 0:
         word = input("搜索条件？（插画标题、作者、标签，留空则随机）")  # 请求用户输入搜索条件+编码为url
         r18 = int(input("R18状态（0为禁用，1为启用，2为混合）") or 0)

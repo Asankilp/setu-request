@@ -16,7 +16,7 @@ get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size1200=F
 参数：  
 * __keyword__ (`str`) 搜索涩图的关键字。 
 * __r18__ (`int`) R18状态。`0`为非R18，`1`为R18，`2`为混合，默认为`0`。传递这些数字以外的参数会抛出`ValueError`异常。
-* __num__ (`int`) 单次返回的涩图数量，默认为`1`。不得超过100，否则会抛出`ValueError`异常。
+* __num__ (`int`) 单次返回的涩图数量，默认为`1`。不得超过20，否则会抛出`ValueError`异常。
 * __proxy__ (`str`) 返回的原图链接的域名，默认为`i.pixiv.re`。为`disable`时返回真正的原图链接。
 * __size1200__ (`bool`) 是否使用长或宽最大为 1200px 的缩略图，默认为`False`。  
 ```python
@@ -27,7 +27,7 @@ get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["origi
 * __keyword__ (`str`) 搜索涩图的关键字。 
 * __tag__ (`list`) 返回匹配指定标签的作品（[详细说明](https://api.lolicon.app/#/setu?id=tag)）。
 * __r18__ (`int`) R18状态。`0`为非R18，`1`为R18，`2`为混合，默认为`0`。传递这些数字以外的参数会抛出`ValueError`异常。
-* __num__ (`int`) 单次返回的涩图数量，默认为`1`。不得超过100，否则会抛出`ValueError`异常。
+* __num__ (`int`) 单次返回的涩图数量，默认为`1`。不得超过20，否则会抛出`ValueError`异常。
 * __uid__ (`list`) 返回指定`uid`作者的作品，最多`20`个。
 * __size__ (`list`) 返回指定图片规格的地址，默认为`["original"]`（[详细说明](https://api.lolicon.app/#/setu?id=size)）。
 * __proxy__ (`str`) 设置图片地址所使用的在线反代服务，默认为`i.pixiv.re`。为任意假值（如`false`, `0`, `null`）时返回真正的原图链接（[详细说明](https://api.lolicon.app/#/setu?id=proxy)）。
