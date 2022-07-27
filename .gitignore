@@ -1,11 +1,9 @@
-/__pycache__/
 apikey.txt
 savedir.txt
 /.vscode/
 *.png
 *.jpg
 *.gif
-/bot_plugins/__pycache__/
 *.bak
 bot_config.py
 /setubot_urllog/
@@ -14,3 +12,4 @@ setuhdisabled
 nul
 config.json
 /.idea/
+__pycache__

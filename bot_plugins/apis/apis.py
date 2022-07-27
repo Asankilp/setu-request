@@ -54,24 +54,23 @@ async def get_setu_h(arg: str) -> str:
     else:
         return [str(code), msg]
 
-async def url_log(url: str, enable: bool, logfilename: str) -> str:
+async def url_log(url: str, logfilename: str) -> str:
     try:
         os.mkdir("setubot_urllog")
     except:
         pass
-    if enable == True:
-        with open(os.path.join("setubot_urllog", logfilename), mode="a") as logfile:
-            logfile.write(url+"\n")
-            logfile.close()
+    with open(os.path.join("setubot_urllog", logfilename), mode="a") as logfile:
+        logfile.write(url+"\n")
+        logfile.close()
 
-async def getconfig(key: str, default: bakalist):
+async def getconfig(key: str, default=bakalist):
     with open("setubot_config.json", mode="r", encoding="utf-8") as config:
         data = json.loads(config.read())
         if key is None:
             return data
         else:
             return data.get(str(key), default)
-async def setconfig(key: str | None, value: bakalist):
+async def setconfig(key: str, value: bakalist):
     if type(value) not in bakalist:
          return False
     if key is None:
