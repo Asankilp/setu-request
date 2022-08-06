@@ -59,7 +59,7 @@ async def url_log(url: str, logfilename: str) -> str:
 def getconfig(key: str = None, default=bakalist):
     with open("setubot_config.json", mode="r", encoding="utf-8") as config:
         data = json.loads(config.read())
-        if key is None:
+        if key is None or key is "":
             return data
         else:
             return data.get(str(key), default)

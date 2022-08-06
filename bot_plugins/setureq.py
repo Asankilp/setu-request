@@ -93,10 +93,6 @@ async def _(session: CommandSession):
         await session.send("搜索涩图中。请耐心等待。\n一段时间后仍未响应，请重试或联系Bot管理员。")
         setu_data = await get_setu_h(arg)
         if len(setu_data) == 5:
-            for tag in setu_data[4]:
-                if tag in setu_h_bannedtags:
-                    await session.send("API返回的涩图的其中一个或多个标签已被屏蔽。")
-                    return
             if getconfig("enable_url_logging") == True: await url_log(setu_data[0], logfilename=logfilename)
             await session.send("PID:"+setu_data[1]+" 作者："+setu_data[2]+" 标题："+setu_data[3]+"\nURL:"+setu_data[0]+"\n*不会发送图片。")
             setu_h_counter = setu_h_counter + 1
@@ -163,7 +159,7 @@ async def _(session: CommandSession):
     /sendmsg <消息> 使此机器人发送指定的消息。仅超级用户可用。
     /togglesetuh 切换/setu-h命令的可用性（启用/禁用）。对所有会话生效。仅超级用户可用。
     /togglesetues 切换除/setu-h外所有请求涩图命令的可用性（启用/禁用）。对所有会话生效。仅超级用户可用。
-    /getconfig <key> 获取在setubot_config.json中指定键的值。仅超级用户可用。""")
+    /getconfig [key] 获取在setubot_config.json中指定键的值，参数为空将获取整个json。仅超级用户可用。""")
 
 
 @on_command("sendmsg", only_to_me=False, permission=perm.SUPERUSER)
