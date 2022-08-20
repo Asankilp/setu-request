@@ -41,14 +41,17 @@ def download_img(dlurl):
             skippedcounter = skippedcounter + 1
             return 'exist'
 data = seturequest.get_setu_from_loliconv1(num=10)
+a = 0
 for i in range(10):
-    dlurl = data(["data"][i]["url"])
-    pid = str(data["data"][i]["pid"])
-    pic = str(data["data"][i]["p"])
-    uid = str(data["data"][i]["uid"])
-    title1 = str(data["data"][i]["title"])
-    author1 = str(data["data"][i]["author"])
+    global a
+    dlurl = data(["data"][a]["url"])
+    pid = str(data["data"][a]["pid"])
+    pic = str(data["data"][a]["p"])
+    uid = str(data["data"][a]["uid"])
+    title1 = str(data["data"][a]["title"])
+    author1 = str(data["data"][a]["author"])
     title = replacesym(title1)  # 去除不能作为文件名的符号
     author = replacesym(author1)
     print(dlurl)
     download_img(dlurl)
+    a = a + 1
