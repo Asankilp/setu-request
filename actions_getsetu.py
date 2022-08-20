@@ -43,7 +43,6 @@ def download_img(dlurl):
 data = seturequest.get_setu_from_loliconv1(num=10)
 a = 0
 for i in range(10):
-    global a
     dlurl = data(["data"][a]["url"])
     pid = str(data["data"][a]["pid"])
     pic = str(data["data"][a]["p"])
