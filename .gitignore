@@ -13,3 +13,4 @@ nul
 config.json
 /.idea/
 __pycache__
+/actions/
