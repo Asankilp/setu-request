@@ -17,6 +17,9 @@ usecurl = True
 if os.path.exists("actions") is False:
     os.mkdir("actions")
 setudir = "./actions"
+finishedcounter = 0
+failedcounter = 0
+skippedcounter = 0
 def download_img(dlurl):
     global setudir, finishedcounter, failedcounter, skippedcounter
     extname = "." + dlurl.split(".").pop()
