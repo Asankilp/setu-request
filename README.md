@@ -20,7 +20,7 @@ get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size1200=F
 * __proxy__ (`str`) 返回的原图链接的域名，默认为`i.pixiv.re`。为`disable`时返回真正的原图链接。
 * __size1200__ (`bool`) 是否使用长或宽最大为 1200px 的缩略图，默认为`False`。  
 ```python
-get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re", dateAfter=None, dateBefore=None, dsc=False)
+get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re", dateAfter=None, dateBefore=None, dsc=False, excludeAI=False)
 ```
 从Lolicon API v2获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu) ） 。  
 参数：  
@@ -34,6 +34,8 @@ get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["origi
 * __dateAfter__ (`int`) 返回在这个时间及以后上传的作品；时间戳，单位为毫秒。
 * __dateBefore__ (`int`) 返回在这个时间及以前上传的作品；时间戳，单位为毫秒
 * __dsc__ (`bool`) 禁用对某些缩写`keyword`和`tag`的自动转换，默认为`false`（[详细说明](https://api.lolicon.app/#/setu?id=dsc)）。
+* __excludeAI__ (`bool`) 排除 AI 生成的作品，默认为`false`。
+
 ```python
 get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=False, key="")
 ```

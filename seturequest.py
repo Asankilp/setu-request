@@ -27,7 +27,7 @@ def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size12
 
 
 def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["original"], proxy="i.pixiv.re",
-                            dateAfter=None, dateBefore=None, dsc=False) -> dict:
+                            dateAfter=None, dateBefore=None, dsc=False, excludeAI=False) -> dict:
     '''
     从Lolicon API v2获取涩图。将返回`dict`数据，格式与API返回json相同（详情参考[官方文档](https://api.lolicon.app/#/setu) ） 。  
     参数：  
@@ -41,6 +41,7 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
     * dateAfter (`int`) 返回在这个时间及以后上传的作品；时间戳，单位为毫秒。
     * dateBefore (`int`) 返回在这个时间及以前上传的作品；时间戳，单位为毫秒
     * dsc (`bool`) 禁用对某些缩写`keyword`和`tag`的自动转换，默认为`false`（[详细说明](https://api.lolicon.app/#/setu?id=dsc)）。
+    * excludeAI (`bool`) 排除 AI 生成的作品，默认为`false`。
     '''
     global false, null, true
     false = null = true = ''
@@ -52,7 +53,8 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
         "num": int(num),
         "size": size,
         "proxy": proxy,
-        "dsc": str(dsc).lower()
+        "dsc": str(dsc).lower(),
+        "excludeAI": str(excludeAI).lower()
     }
     if uid is not None:
         requestjson["uid"] = uid
