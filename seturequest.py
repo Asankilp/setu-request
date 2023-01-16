@@ -17,9 +17,9 @@ def get_setu_from_loliconv1(keyword="", r18=0, num=1, proxy="i.pixiv.re", size12
     if r18 not in R18_ALLOWED_ARG:
         raise ValueError("'r18' argument can only be 0, 1 or 2")
     elif num <= 0:
-        raise ValueError("'num' argument can only be <0 and >= 20")
+        raise ValueError("'num' argument can only be >0 and <= 20")
     elif num > 20:
-        raise ValueError("'num' argument can only be <0 and >= 20")
+        raise ValueError("'num' argument can only be >0 and <= 20")
     response = urllib.request.urlopen(
         f"https://api.lolicon.app/setu/v1/?keyword={urllib.parse.quote(keyword)}&r18={r18}&num={int(num)}&proxy={proxy}&size1200={str(size1200).lower()}")
     data = json.loads(response.read().decode())
@@ -68,9 +68,9 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
     if r18 not in R18_ALLOWED_ARG:
         raise ValueError("'r18' argument can only be 0, 1 or 2")
     elif num <= 0:
-        raise ValueError("'num' argument can only be <0 and >= 200")
+        raise ValueError("'num' argument can only be >0 and <= 200")
     elif num > 20:
-        raise ValueError("'num' argument can only be <0 and >= 20")
+        raise ValueError("'num' argument can only be >0 and <= 20")
     for sizee in size:
         if sizee not in SIZE_ARGS:
             raise ValueError("'size' argument can only have 'original', 'regular', 'small', 'thumb', and 'mini'")
@@ -106,9 +106,9 @@ def get_setu_from_fantasyzone(lib="pc", type="json", r18=0, num=1, not_proxy=Fal
     elif not_proxy == True:
         not_proxy = 1
     if num <= 0:
-        raise ValueError("'num' argument can only be <0 and >= 10")
+        raise ValueError("'num' argument can only be >0 and <= 10")
     elif num > 10:
-        raise ValueError("'num' argument can only be <0 and >= 10")
+        raise ValueError("'num' argument can only be >0 and <= 10")
     if lib == "pixiv" and key == "":
         raise ValueError("'key' argument cannot be empty when using 'pixiv' library")
     url = f"http://api.fantasyzone.cc/tu/?type={type}&class={lib}&r18={r18}&not_proxy={str(not_proxy).lower()}&key={key}"
