@@ -60,7 +60,7 @@ def download_img(dlurl):  # 定义下载函数
         print("状态码：", r.status_code)  # 返回状态码
         if r.status_code == 200:
             print("\033[33m下载中...\033[0m")
-            if str(setudir) is None:  # 如果savedir.txt没内容，则取默认值
+            if str(setudir) is None:  # 如果savedir为空，则取默认值
                 setudir = "./"
             if os.path.exists(setupath) is False:
                 open(os.path.join(setudir, setuname),
