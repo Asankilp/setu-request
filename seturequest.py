@@ -71,9 +71,8 @@ def get_setu_from_loliconv2(keyword="", tag=[], r18=0, num=1, uid=None, size=["o
         raise ValueError("'num' argument can only be >0 and <= 200")
     elif num > 20:
         raise ValueError("'num' argument can only be >0 and <= 20")
-    for sizee in size:
-        if sizee not in SIZE_ARGS:
-            raise ValueError("'size' argument can only have 'original', 'regular', 'small', 'thumb', and 'mini'")
+    if size not in SIZE_ARGS:
+        raise ValueError("'size' argument can only have 'original', 'regular', 'small', 'thumb', and 'mini'")
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url='https://api.lolicon.app/setu/v2', headers=headers, data=json.dumps(requestjson))
     response.encoding = "utf-8"

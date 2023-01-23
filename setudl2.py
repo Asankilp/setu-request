@@ -155,10 +155,11 @@ def main():
                 else:
                     inputtags.append(tagstr)
             r18 = int(input("R18状态（0为禁用，1为启用，2为混合）") or 0)
+            size = str(input("图片尺寸（可能的值：original|regular|small|thumb|mini） (original)"))
             blockAI = bool(input("是否排除 AI 生成作品？(y/N)") or False)
             for i in range(count):  # 循环（涩图份数）次
                 data = seturequest.get_setu_from_loliconv2(
-                    tag=inputtags, num=numb, r18=r18,excludeAI=blockAI)  # 从api获取json
+                    tag=inputtags, num=numb, r18=r18,excludeAI=blockAI, size=size)  # 从api获取json
                 print("返回JSON：", data)
                 error = (data["error"])
                 setufen = setufen + 1  # 涩图份数+1
