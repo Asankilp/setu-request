@@ -155,7 +155,7 @@ def main():
                 else:
                     inputtags.append(tagstr)
             r18 = int(input("R18状态（0为禁用，1为启用，2为混合）") or 0)
-            size = str(input("图片尺寸（可能的值：original|regular|small|thumb|mini） (original)"))
+            size = str(input("图片尺寸（可能的值：original|regular|small|thumb|mini） (original)") or "original")
             blockAI = bool(input("是否排除 AI 生成作品？(y/N)") or False)
             for i in range(count):  # 循环（涩图份数）次
                 data = seturequest.get_setu_from_loliconv2(
